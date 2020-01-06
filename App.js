@@ -17,21 +17,40 @@ import {
 } from "react-native";
 import NavigationView from "./NavigationView";
 import { NativeModules } from "react-native";
-
 type Props = {};
 export default class App extends Component<Props> {
   state = {
+    initialPosition: null,
+    lastPosition: null,
     granted: Platform.OS === "ios",
-    fromLat: 34.028092,
-    fromLong: -118.484868,
-    toLat: 34.019444,
-    toLong: -118.409259
+    fromLat: -34.90949779775191,
+    fromLong: -56.17891507941232,
+    toLat: -34.90949779775191 ,
+    toLong: -56.17891507941232
   };
-
+  watchID: ?number = null;
   componentDidMount() {
     if (!this.state.granted) {
       this.requestFineLocationPermission();
     }
+    // Instead of navigator.geolocation, just use Geolocation.
+    Geolocation.getCurrentPosition(
+      position => {
+        const initialPosition = position;
+        this.setState({fromLat: position.coords.latitude, fromLong: position.coords.longitude})
+        this.setState({initialPosition});
+      },
+      error => Alert.alert('Error', JSON.stringify(error)),
+      {enableHighAccuracy: true, timeout: 20000, maximumAge: 1000},
+    );
+    this.watchID = Geolocation.watchPosition(position => {
+      const lastPosition = position;
+      this.setState({lastPosition});
+    });
+
+  }
+  componentWillUnmount() {
+   this.watchID != null && Geolocation.clearWatch(this.watchID);
   }
 
   async requestFineLocationPermission() {
@@ -59,10 +78,10 @@ export default class App extends Component<Props> {
       <View style={styles.container}>
         <View style={styles.subcontainer}>
           <Text style={styles.welcome}>
-            Welcome to Mapbox Navigation for React Native
+            Welcome to Mapbox Navigation for React Native 0.59.9
           </Text>
         </View>
-        {granted && (
+
           <NavigationView
             style={styles.navigation}
             destination={{
@@ -74,7 +93,7 @@ export default class App extends Component<Props> {
               long: fromLong
             }}
           />
-        )}
+
         <View style={styles.subcontainer}>
           <Text style={styles.welcome}>Another View !</Text>
           {Platform.OS === "android" && (

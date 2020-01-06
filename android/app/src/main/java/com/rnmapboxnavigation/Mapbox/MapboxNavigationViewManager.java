@@ -3,8 +3,8 @@ package com.rnmapboxnavigation.Mapbox;
 import android.app.Activity;
 import android.os.Handler;
 import android.os.Looper;
-import android.support.annotation.Nullable;
-import android.support.annotation.UiThread;
+import androidx.annotation.Nullable;
+import androidx.annotation.UiThread;
 import android.util.Log;
 import android.widget.FrameLayout;
 

@@ -1,3 +1,4 @@
 rootProject.name = 'RNMapboxNavigation'
-
+include ':@react-native-community_geolocation'
+project(':@react-native-community_geolocation').projectDir = new File(rootProject.projectDir, '../node_modules/@react-native-community/geolocation/android')
 include ':app'
