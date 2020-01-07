@@ -81,7 +81,7 @@ export default class App extends Component<Props> {
             Welcome to Mapbox Navigation for React Native 0.59.9
           </Text>
         </View>
-
+        {granted && (
           <NavigationView
             style={styles.navigation}
             destination={{
@@ -93,7 +93,7 @@ export default class App extends Component<Props> {
               long: fromLong
             }}
           />
-
+        )}
         <View style={styles.subcontainer}>
           <Text style={styles.welcome}>Another View !</Text>
           {Platform.OS === "android" && (
