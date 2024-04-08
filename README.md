@@ -1,6 +1,16 @@
 # react-native-mapbox-navigation
 
-A React Native wrapper for MapBox Navigation
+A React Native wrapper for MapBox Navigation upgraded to version 0.59.9  
+
+=> updated react-native-geolocation-service by @react-native-community/geolocation
+
+=> updated android.support.annotation by andoidx.annotation
+
+=> installed jetifier
+
+=> working on android but needs ios debug because i don't have a Mac
+
+=> updated App.js to start at gps current position
 
 ## Installing the app
 
